@@ -4,8 +4,8 @@ import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 // for amplify configuration
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+import awsmobile from './aws-exports';
+Amplify.configure(awsmobile);
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
