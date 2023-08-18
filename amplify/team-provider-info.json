@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ionicgqlahmat-dev-121941-authRole",
+      "UnauthRoleArn": "arn:aws:iam::519918073452:role/amplify-ionicgqlahmat-dev-121941-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::519918073452:role/amplify-ionicgqlahmat-dev-121941-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-ionicgqlahmat-dev-121941-deployment",
+      "UnauthRoleName": "amplify-ionicgqlahmat-dev-121941-unauthRole",
+      "StackName": "amplify-ionicgqlahmat-dev-121941",
+      "StackId": "arn:aws:cloudformation:us-west-1:519918073452:stack/amplify-ionicgqlahmat-dev-121941/c0a4fa80-3db0-11ee-bbf0-027bddbcbe05",
+      "AmplifyAppId": "d45e1ajsqnx07"
+    },
+    "categories": {
+      "api": {
+        "ionicgqlahmat": {}
+      }
+    }
+  }
+}

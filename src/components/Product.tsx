@@ -6,25 +6,21 @@ import { useMutation , gql} from "@apollo/client";
 import { useHistory } from 'react-router-dom';
 import { useContext } from "react";
 import {updateContext} from "../App";
-const DELETE_ITEM = gql`
-    mutation DeleteProductById($productId: ID!) {
-        deleteProductById(productId: $productId)
-    }
-`;
+import { API, graphqlOperation  } from 'aws-amplify';
+import { deleteProducts } from '../graphql/mutations';
 
 const Product: React.FC<oneItem> = (props) => {
     const {setUpdateInput} = useContext<any>(updateContext);
     const navigate = useHistory();
     const item = props.item;
-    const [trashClick, { 
-        loading, error, data},
-    ] = useMutation(DELETE_ITEM, {
-        onCompleted: (data) => window.alert(data.deleteProductById),
-        onError: (error) => window.alert(error.message),
-    });
-    const trashButtonHandler = () => {
+    const trashButtonHandler = async () => {
         const confirm = window.confirm("Do you realy want to delete this Item ?");
-        if(confirm) trashClick({ variables: { productId: item.id}});
+        if(confirm){
+            try {
+                await API.graphql(graphqlOperation(deleteProducts, {input: {id: item.id }}));
+                window.alert("The product was deleted successfuly :)");
+            } catch (error) { window.alert("Server not responding :)");}
+        } 
     }
     const UpdateButtonHandler = (e:React.MouseEvent<HTMLIonButtonElement, MouseEvent> ) => {
         e.preventDefault();

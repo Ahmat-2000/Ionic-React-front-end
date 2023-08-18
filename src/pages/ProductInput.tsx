@@ -3,57 +3,46 @@ import * as yup from 'yup';
 import {useForm} from "react-hook-form";
 import {InputData} from "../Interfaces/Type";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {useMutation, gql} from "@apollo/client";
 import { useContext } from "react";
 import {updateContext} from "../App";
-
-const ADD_PRODUCT = gql`
-  mutation Mutation($productInput: productInput!) {
-    addProduct(productInput: $productInput)
-  }
-`;
-
-const UPDATE_PRODUCT = gql`
-  mutation UpdateProductById($productId: ID!, $product: productInput!) {
-    updateProductById(productId: $productId, productInput: $product)
-  }
-`;
+import { API, graphqlOperation  } from 'aws-amplify';
+import { createProducts } from '../graphql/mutations';
+import { updateProducts } from '../graphql/mutations';
 
 const ProductInput: React.FC = () => {
-  const [addProduct] = useMutation(ADD_PRODUCT,{
-    onCompleted: (data) => window.alert(data.addProduct),
-    onError: (error) => window.alert(error.message),
-  });
-  const [updateProduct] = useMutation(UPDATE_PRODUCT,{
-    onCompleted: (data) => window.alert(data.updateProductById),
-    onError: (error) => window.alert(error.message),
-  });
   const {updateInput,setUpdateInput} = useContext<any>(updateContext);
-  console.log(updateInput)
-  const ourOnSubmit = (data: InputData) => {
+  const ourOnSubmit = async (data: InputData) => {
     const value = {
       name: data.name,
       price: data.price,
       quantity: data.quantity
     };   
     if(updateInput.isUpdate){
-      updateProduct({
-        variables: {
-          productId: updateInput.id,
-          product: value}
-      });
-      setUpdateInput(() => ({
-        id: "",
-        name : "",
-        price: null,
-        quantity: null,
-        isUpdate: false
-    }));
+      try{
+        await API.graphql(graphqlOperation(updateProducts, {input: {...value, id: updateInput.id}}));
+        setUpdateInput(() => ({
+          id: "",
+          name : "",
+          price: null,
+          quantity: null,
+          isUpdate: false
+        }));
+        window.alert("The product was updated successfuly :)");
+      } catch (error) { window.alert("Server not responding :)");}
     }
     else{
-      addProduct({variables: {productInput:value}})
+      try{
+        await API.graphql(graphqlOperation(createProducts, {input: {...value}}));
+        setUpdateInput(() => ({
+          id: "",
+          name : "",
+          price: null,
+          quantity: null,
+          isUpdate: false
+        }));
+        window.alert("The product was updated successfuly :)");
+      } catch (error) { window.alert("Server not responding :)");}
     }
-    console.log(value);
   }
   const validationSchema = yup.object().shape({
       name: yup.string().required().min(3,"name mus be at least 3 characters")
