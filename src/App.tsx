@@ -26,10 +26,10 @@ import ShowProducts from './pages/ShowProducts';
 import "./main.css";
 import { Route, Redirect } from 'react-router';
 import {createContext, useState} from "react";
-import {UpdatecontextType} from "./Interfaces/Type";
+import {Item, UpdatecontextType} from "./Interfaces/Type";
 setupIonicReact();
 
-export const updateContext = createContext<any>({});
+export const productContext = createContext<any>({});
 
 const App: React.FC = () => {
   const [updateInput,setUpdateInput] = useState<UpdatecontextType>({
@@ -39,8 +39,9 @@ const App: React.FC = () => {
     quantity: null,
     isUpdate: false
   });
+  const [productsList,setProductList] = useState<Item[]>([]);
   return(
-    <updateContext.Provider value={{updateInput,setUpdateInput}}>
+    <productContext.Provider value={{productsList,setProductList,updateInput,setUpdateInput}}>
     <IonReactRouter>
       <IonTabs>
         {/* Routes redirections handling */}
@@ -76,7 +77,7 @@ const App: React.FC = () => {
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>
-    </updateContext.Provider>
+    </productContext.Provider>
   )
 };
 

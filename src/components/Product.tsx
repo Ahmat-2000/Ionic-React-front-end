@@ -1,16 +1,16 @@
 import { IonButton, IonCol, IonIcon, IonRow } from "@ionic/react";
 import React from "react";
-import { oneItem } from "../Interfaces/Type";
+import { Item, oneItem } from "../Interfaces/Type";
 import { trashSharp, pencilSharp } from "ionicons/icons";
 import { useMutation , gql} from "@apollo/client";
 import { useHistory } from 'react-router-dom';
 import { useContext } from "react";
-import {updateContext} from "../App";
+import {productContext} from "../App";
 import { API, graphqlOperation  } from 'aws-amplify';
 import { deleteProducts } from '../graphql/mutations';
 
 const Product: React.FC<oneItem> = (props) => {
-    const {setUpdateInput} = useContext<any>(updateContext);
+    const {setProductsList,setUpdateInput} = useContext(productContext);
     const navigate = useHistory();
     const item = props.item;
     const trashButtonHandler = async () => {
@@ -18,10 +18,11 @@ const Product: React.FC<oneItem> = (props) => {
         if(confirm){
             try {
                 await API.graphql(graphqlOperation(deleteProducts, {input: {id: item.id }}));
+                setProductsList((prev:Item[]) =>  prev.filter((val) => val.id !== item.id) );
                 window.alert("The product was deleted successfuly :)");
             } catch (error) { window.alert("Server not responding :)");}
         } 
-    }
+    };
     const UpdateButtonHandler = (e:React.MouseEvent<HTMLIonButtonElement, MouseEvent> ) => {
         e.preventDefault();
         setUpdateInput(() => ({
@@ -32,7 +33,7 @@ const Product: React.FC<oneItem> = (props) => {
             isUpdate: true
         }));
         navigate.push("/productInput");
-    }
+    };
     return (
     <IonRow className="grille">
         <IonCol className="center" >{item.name}</IonCol>

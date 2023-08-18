@@ -1,16 +1,16 @@
 import { IonButton, IonCard,IonCardContent,IonContent,IonHeader,IonInput,IonItem,IonText,IonTitle, IonToolbar } from '@ionic/react';
 import * as yup from 'yup';
 import {useForm} from "react-hook-form";
-import {InputData} from "../Interfaces/Type";
+import {InputData, Item} from "../Interfaces/Type";
 import {yupResolver} from "@hookform/resolvers/yup";
 import { useContext } from "react";
-import {updateContext} from "../App";
+import {productContext} from "../App";
 import { API, graphqlOperation  } from 'aws-amplify';
 import { createProducts } from '../graphql/mutations';
 import { updateProducts } from '../graphql/mutations';
 
 const ProductInput: React.FC = () => {
-  const {updateInput,setUpdateInput} = useContext<any>(updateContext);
+  const {productsList, setProductsList,setUpdateInput,updateInput} = useContext(productContext);
   const ourOnSubmit = async (data: InputData) => {
     const value = {
       name: data.name,
@@ -20,6 +20,9 @@ const ProductInput: React.FC = () => {
     if(updateInput.isUpdate){
       try{
         await API.graphql(graphqlOperation(updateProducts, {input: {...value, id: updateInput.id}}));
+        setProductsList((prev: Item[]) =>
+          prev.map((item) => (item.id === updateInput.id ? { ...item, ...value } : item))
+        );
         setUpdateInput(() => ({
           id: "",
           name : "",
@@ -27,12 +30,15 @@ const ProductInput: React.FC = () => {
           quantity: null,
           isUpdate: false
         }));
+        console.log(updateInput);
+        
         window.alert("The product was updated successfuly :)");
       } catch (error) { window.alert("Server not responding :)");}
     }
     else{
       try{
-        await API.graphql(graphqlOperation(createProducts, {input: {...value}}));
+        const newItem = await API.graphql(graphqlOperation(createProducts, {input: {...value}}));
+        setProductsList((prev: Item[]) => [...prev, newItem.data.createProducts]);
         setUpdateInput(() => ({
           id: "",
           name : "",

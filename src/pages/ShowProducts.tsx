@@ -1,16 +1,13 @@
 import { IonCol, IonContent, IonGrid, IonHeader, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import Product from '../components/Product';
-// import DB from '../data';
 import { Item } from '../Interfaces/Type';
-// Import everything needed to use the `useQuery` hook
-//import { useQuery, gql } from '@apollo/client';
-import { useEffect, useState } from 'react';
-//import data from '../data';
+import { useEffect, useState , useContext} from 'react';
 import { API, graphqlOperation  } from 'aws-amplify';
 import { listProducts } from '../graphql/queries';
+import {productContext} from "../App";
 
 const ShowProducts: React.FC = () => {
-  const [data, setData] = useState<Item[]>([]);
+  const {productsList, setProductsList} = useContext(productContext);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -22,7 +19,7 @@ const ShowProducts: React.FC = () => {
     try {
       const productData = await API.graphql(graphqlOperation(listProducts));
       const products = productData.data.listProducts.items;
-      setData(products);
+      setProductsList(products);
       setLoading(false); // Set loading to false after data is fetched
     } catch (err:any) {
       setError(err);
@@ -51,7 +48,7 @@ const ShowProducts: React.FC = () => {
                 <IonCol className="center">Update</IonCol>
             </IonRow>
             {
-                data.map((prod: Item) => (<Product item={prod} key={prod.id} />) )
+                productsList.map((prod: Item) => (<Product item={prod} key={prod.id} />) )
             }
         </IonGrid>
         </div>
