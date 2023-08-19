@@ -9,7 +9,7 @@ import { API, graphqlOperation  } from 'aws-amplify';
 import { deleteProducts } from '../graphql/mutations';
 
 const Product: React.FC<oneItem> = (props) => {
-    const {setProductsList,setUpdateInput} = useContext(productContext);
+    const {setProductList,setUpdateInput} = useContext(productContext);
     const navigate = useHistory();
     const item = props.item;
     const trashButtonHandler = async () => {
@@ -17,7 +17,7 @@ const Product: React.FC<oneItem> = (props) => {
         if(confirm){
             try {
                 await API.graphql(graphqlOperation(deleteProducts, {input: {id: item.id }}));
-                setProductsList((prev:Item[]) =>  prev.filter((val) => val.id !== item.id) );
+                setProductList((prev:Item[]) =>  prev.filter((val) => val.id !== item.id) );
                 window.alert("The product was deleted successfuly :)");
             } catch (error) { window.alert("Server not responding :)");}
         } 

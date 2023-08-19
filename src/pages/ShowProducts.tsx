@@ -7,7 +7,7 @@ import { listProducts } from '../graphql/queries';
 import {productContext} from "../App";
 
 const ShowProducts: React.FC = () => {
-  const {productsList, setProductsList} = useContext(productContext);
+  const {productsList, setProductList} = useContext(productContext);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +16,7 @@ const ShowProducts: React.FC = () => {
       const productData = await API.graphql(graphqlOperation(listProducts));
       console.log(productData);
       const products = productData.data.listProducts.items;
-      setProductsList(products);
+      setProductList(products);
       setLoading(false); // Set loading to false after data is fetched
     } catch (err:any) {
       setError(err);

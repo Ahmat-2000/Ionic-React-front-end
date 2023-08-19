@@ -29,7 +29,29 @@ import {createContext, useState} from "react";
 import {Item, UpdatecontextType} from "./Interfaces/Type";
 setupIonicReact();
 
-export const productContext = createContext<any>({});
+interface ProductContextType {
+  productsList: Item[];
+  setProductList: React.Dispatch<React.SetStateAction<Item[]>>;
+  // Add other context properties if needed
+  updateInput: UpdatecontextType;
+  setUpdateInput: React.Dispatch<React.SetStateAction<UpdatecontextType>>;
+}
+
+const initialProductContext: ProductContextType = {
+  productsList: [],
+  setProductList: () => {},
+  // Initialize other context properties if needed
+  updateInput: {
+    id: "",
+    name : "",
+    price: null,
+    quantity: null,
+    isUpdate: false
+  },
+  setUpdateInput: () => {}
+};
+
+export const productContext = createContext<ProductContextType>(initialProductContext);
 
 const App: React.FC = () => {
   const [updateInput,setUpdateInput] = useState<UpdatecontextType>({
