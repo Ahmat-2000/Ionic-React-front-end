@@ -18,7 +18,7 @@ export interface InputData {
 export interface UpdatecontextType{
     id: string;
     name: string;
-    price: number | null;
-    quantity: number | null;
+    price: number | undefined ;
+    quantity: number | undefined ;
     isUpdate: boolean;
 }

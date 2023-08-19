@@ -44,8 +44,8 @@ const initialProductContext: ProductContextType = {
   updateInput: {
     id: "",
     name : "",
-    price: null,
-    quantity: null,
+    price: undefined ,
+    quantity: undefined,
     isUpdate: false
   },
   setUpdateInput: () => {}
@@ -57,8 +57,8 @@ const App: React.FC = () => {
   const [updateInput,setUpdateInput] = useState<UpdatecontextType>({
     id: "",
     name : "",
-    price: null,
-    quantity: null,
+    price: undefined,
+    quantity: undefined,
     isUpdate: false
   });
   const [productsList,setProductList] = useState<Item[]>([]);

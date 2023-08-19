@@ -10,7 +10,7 @@ import { createProducts } from '../graphql/mutations';
 import { updateProducts } from '../graphql/mutations';
 
 const ProductInput: React.FC = () => {
-  const {setProductsList,setUpdateInput,updateInput} = useContext(productContext);
+  const {setProductList,setUpdateInput,updateInput} = useContext(productContext);
   const ourOnSubmit = async (data: InputData) => {
     const value = {
       name: data.name,
@@ -20,14 +20,14 @@ const ProductInput: React.FC = () => {
     if(updateInput.isUpdate){
       try{
         await API.graphql(graphqlOperation(updateProducts, {input: {...value, id: updateInput.id}}));
-        setProductsList((prev: Item[]) =>
+        setProductList((prev: Item[]) =>
           prev.map((item) => (item.id === updateInput.id ? { ...item, ...value } : item))
         );
         setUpdateInput(() => ({
           id: "",
           name : "",
-          price: null,
-          quantity: null,
+          price: undefined,
+          quantity: undefined,
           isUpdate: false
         }));
         console.log(updateInput);
@@ -38,12 +38,12 @@ const ProductInput: React.FC = () => {
     else{
       try{
         const newItem = await API.graphql(graphqlOperation(createProducts, {input: {...value}}));
-        setProductsList((prev: Item[]) => [...prev, newItem.data.createProducts]);
+        setProductList((prev: Item[]) => [...prev, newItem.data.createProducts]);
         setUpdateInput(() => ({
           id: "",
           name : "",
-          price: null,
-          quantity: null,
+          price: undefined,
+          quantity: undefined,
           isUpdate: false
         }));
         window.alert("The product was updated successfuly :)");
