@@ -2,7 +2,6 @@ import { IonButton, IonCol, IonIcon, IonRow } from "@ionic/react";
 import React from "react";
 import { Item, oneItem } from "../Interfaces/Type";
 import { trashSharp, pencilSharp } from "ionicons/icons";
-import { useMutation , gql} from "@apollo/client";
 import { useHistory } from 'react-router-dom';
 import { useContext } from "react";
 import {productContext} from "../App";

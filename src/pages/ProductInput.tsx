@@ -10,7 +10,7 @@ import { createProducts } from '../graphql/mutations';
 import { updateProducts } from '../graphql/mutations';
 
 const ProductInput: React.FC = () => {
-  const {productsList, setProductsList,setUpdateInput,updateInput} = useContext(productContext);
+  const {setProductsList,setUpdateInput,updateInput} = useContext(productContext);
   const ourOnSubmit = async (data: InputData) => {
     const value = {
       name: data.name,

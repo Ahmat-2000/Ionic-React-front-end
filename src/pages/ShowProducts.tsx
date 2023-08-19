@@ -11,13 +11,10 @@ const ShowProducts: React.FC = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  async function fetchTodos() {
+  const fetchProducts = async () => {
     try {
       const productData = await API.graphql(graphqlOperation(listProducts));
+      console.log(productData);
       const products = productData.data.listProducts.items;
       setProductsList(products);
       setLoading(false); // Set loading to false after data is fetched
@@ -26,6 +23,9 @@ const ShowProducts: React.FC = () => {
       setLoading(false); // Set loading to false on error
     }
   }
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error)  return <p>Error : {error}</p>;

@@ -14,6 +14,12 @@
     "categories": {
       "api": {
         "ionicreactbackend": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dwodmrbs4w1hv",
+          "type": "cicd"
+        }
       }
     }
   }
