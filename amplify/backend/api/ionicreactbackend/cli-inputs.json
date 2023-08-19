@@ -1,7 +1,7 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "ionicgqlahmat",
+    "apiName": "ionicreactbackend",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",

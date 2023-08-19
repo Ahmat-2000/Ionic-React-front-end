@@ -1,5 +1,5 @@
 {
-  "AppSyncApiName": "ionicgqlahmat",
+  "AppSyncApiName": "ionicreactbackend",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false
 }

@@ -1,25 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-ionicgqlahmat-dev-121941-authRole",
-      "UnauthRoleArn": "arn:aws:iam::519918073452:role/amplify-ionicgqlahmat-dev-121941-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::519918073452:role/amplify-ionicgqlahmat-dev-121941-authRole",
+      "AuthRoleName": "amplify-ionicreactbackend-dev-104048-authRole",
+      "UnauthRoleArn": "arn:aws:iam::519918073452:role/amplify-ionicreactbackend-dev-104048-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::519918073452:role/amplify-ionicreactbackend-dev-104048-authRole",
       "Region": "us-west-1",
-      "DeploymentBucketName": "amplify-ionicgqlahmat-dev-121941-deployment",
-      "UnauthRoleName": "amplify-ionicgqlahmat-dev-121941-unauthRole",
-      "StackName": "amplify-ionicgqlahmat-dev-121941",
-      "StackId": "arn:aws:cloudformation:us-west-1:519918073452:stack/amplify-ionicgqlahmat-dev-121941/c0a4fa80-3db0-11ee-bbf0-027bddbcbe05",
-      "AmplifyAppId": "d45e1ajsqnx07"
+      "DeploymentBucketName": "amplify-ionicreactbackend-dev-104048-deployment",
+      "UnauthRoleName": "amplify-ionicreactbackend-dev-104048-unauthRole",
+      "StackName": "amplify-ionicreactbackend-dev-104048",
+      "StackId": "arn:aws:cloudformation:us-west-1:519918073452:stack/amplify-ionicreactbackend-dev-104048/1aa89530-3e6c-11ee-a99d-0617c5a93d17",
+      "AmplifyAppId": "dwodmrbs4w1hv"
     },
     "categories": {
       "api": {
-        "ionicgqlahmat": {}
-      },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d45e1ajsqnx07",
-          "type": "cicd"
-        }
+        "ionicreactbackend": {}
       }
     }
   }
